@@ -14,6 +14,7 @@ const INVALID_EMAIL = 'Передан неправильный формат по
 const INVALID_URL = 'Передан неправильный формат ссылки';
 const PAGE_NOT_FOUND = 'Путь не найден';
 const SERVER_ERROR = 'На сервере произошла ошибка';
+const LIMITER_ERROR = 'Превышен лимит на количество запросов, отправляемых на сервер';
 
 module.exports = {
   linkRegExp,
@@ -32,4 +33,5 @@ module.exports = {
   INVALID_URL,
   PAGE_NOT_FOUND,
   SERVER_ERROR,
+  LIMITER_ERROR,
 };
