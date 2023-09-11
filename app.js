@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const router = require('./routes');
@@ -8,16 +9,22 @@ const { PORT, DB_URL } = require('./utils/config');
 const errorHandler = require('./middlewares/errorHandler');
 const limiter = require('./middlewares/limiter');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const cors = require('./middlewares/cors');
 
 const app = express();
 mongoose.connect(DB_URL);
+
+const allowedCors = ['https://bifilms.anikastreim.nomoreparties.co', 'http://localhost:3000'];
+const corsOptions = {
+  origin: allowedCors,
+  optionsSuccessStatus: 200,
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 app.use(limiter);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
-app.use(cors);
 app.use(requestLogger);
 
 app.use(router);
